@@ -1,0 +1,146 @@
+<?php
+	
+    error_reporting(0);
+	include('lovern.php');
+   #includekan fungsi paginasi
+	include('pagination1.php');
+	
+	if(isset($_GET['search'])){
+		
+		$kdunt = $_GET['kdunt'];
+		$nmunt = $_GET['nmunt'];
+		$sts = $_GET['sts'];
+		$reload = "?pagination=true&kdunt=$kdunt&nmunt=$nmunt&sts=$sts";
+		$sql = "";
+		$result=mysql_query($sql,$link);		
+	}else{
+		$reload = "?pagination=true";
+		$sql = "";
+		$result=mysql_query($sql,$link);
+		
+	}
+
+	/* if(isset($_REQUEST['kdunt']) && $_REQUEST['kdunt']<>""){
+    #jika ada kata kunci pencarian (artinya form pencarian disubmit dan tidak kosong) pakai ini
+        $kdunt=$_REQUEST['kdunt'];
+        $reload = "?pagination=true&kdunt=$kdunt";
+        $sql =  "SELECT * FROM unit_kerja WHERE unit_kerja LIKE '%$kdunt%'";
+        $result = mysql_query($sql,$link);
+    }else{
+    #jika tidak ada pencarian pakai ini
+        $reload = "?pagination=true";
+        $sql =  "SELECT * FROM unit_kerja";
+        $result = mysql_query($sql,$link);
+    } */
+        
+    #pagination config start
+    $rpp = 1; // jumlah record per halaman
+    $page = intval($_GET["page"]);
+    if($page<=0) $page = 1;  
+    $tcount = mysql_num_rows($result);
+    $tpages = ($tcount) ? ceil($tcount/$rpp) : 1; // total pages, last page number
+    $count = 0;
+    $i = ($page-1)*$rpp;
+    $no_urut = ($page-1)*$rpp;
+    //pagination config end
+?>
+
+<html>
+<head>
+ <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.css"/>
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+ <!-- <link rel="stylesheet" href="datatables/dataTables.bootstrap.css"/> -->
+  <link rel="stylesheet" href="style/style_page_list_unit.css" />
+  
+		<script src="bootstrap/js/jquery-1.11.2.min.js"></script>
+        <script src="bootstrap/js/bootstrap.js"></script>
+        <!-- <script src="datatables/jquery.dataTables.js"></script>
+        <script src="datatables/dataTables.bootstrap.js"></script> -->
+</head>
+<body>
+		<div class="container"><br/><br/><br/>
+		<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">Data Unit</h3>
+			
+		</div> <!-- div panel-heading -->
+		</div> <!-- div panel panel-success -->
+		<form method="get">
+			<div class = 'row'>
+			<div class = 'control-group'>
+			<div class="col-xs-3" id="coltb" style="background-color:green;padding-right:60px;">
+				<a href="unit_add.php" style="" class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-plus"></i>Tambah Unit</a>
+				<input class="form-control" style="width:100px;float:right;" type="text" name="kdunt" id="kdunt" placeholder="Kode Unit" />
+			</div>
+			<div class="col-xs-3" id="coltb">
+				<input class="form-control" style="width:200px;" type="text" name="nmunt" id="nmunt"  placeholder="Nama Unit" />
+			</div>
+			<div class="col-xs-3" id="coltb"style="background-color:green;">
+				<input class="form-control" style="width:200px;" type="text" name="sts" id="sts"  placeholder="Status" />
+			</div>
+			<div class="col-xs-3">
+				<button type="submit" name="search"  id="search" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i> Cari</button>
+				<a href="<?php echo $_SERVER['PHP_SELF'];?>" class="btn btn-danger"><i class="glyphicon glyphicon-retweet"></i> Refresh</a>
+			</div>
+			
+			</div>
+			</div>
+		</form>
+			
+		<br/>
+
+		<div> <!-- div tabel-->
+					
+			<table class="table table-striped table-bordered">
+				<thead class="tabelhead">
+					<tr>
+						<th>No</th>
+						<th>Ubah</th>
+						<th>Kode Unit</th>
+						<th>Nama Unit</th>
+						<th>Keterangan</th>
+						<th>Status</th>
+						<th>Dibuat Oleh</th>
+						<th>Tgl Entry</th>
+						<th>Di edit Oleh</th>
+						<th>Tgl Edit</th>
+						<th>Delete</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+                        while(($count<$rpp) && ($i<$tcount)) {
+                        mysql_data_seek($result,$i);
+                        $data = mysql_fetch_array($result);
+                    ?>				             
+								 <tr>
+										<td id="tabelkolomicon"><?php echo ++$no_urut; ?></td>
+										<td id="tabelkolomicon"><a href="edit-users.php?editId=<?php echo $data['id'];?>" class="text-primary"><i class="glyphicon glyphicon-ok"></i></a></td>
+										<td id="tabelkolom"><?php echo $data['kode']; ?></td>
+                                        <td id="tabelkolom"><?php echo $data['nama']; ?></td>
+										<td id="tabelkolom"><?php echo $data['keterangan']; ?></td>
+										<td id="tabelkolom"><?php echo $data['sts']; ?></td>
+										<td id="tabelkolom"><?php echo $data['created_by']; ?></td>
+										<td id="tabelkolom"><?php echo $data['created_date']; ?></td>
+										<td id="tabelkolom"><?php echo $data['last_update_by']; ?></td>
+										<td id="tabelkolom"><?php echo $data['last_update_date']; ?></td>
+										<td id="tabelkolomicon"><a href="delete.php?delId=<?php echo $data['id'];?>" class="text-danger" onClick="return confirm('Anda yakin menghapus data ini ?');"><i class="glyphicon glyphicon-trash"></i></a></td>
+										
+                                    </tr>
+                    <?php
+                                            $i++; 
+                                            $count++;
+                                        }
+                                        ?>
+				</tbody>
+				
+			</table>
+				<div class="text-center"><?php echo paginate_one($reload, $page, $tpages); ?></div>
+			
+		</div> <!-- div tabel-->
+		</div> <!-- div container -->
+
+</body>
+</html>
