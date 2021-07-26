@@ -1,0 +1,906 @@
+<html>
+
+<?php
+
+
+include "phpqrcode/qrlib.php"; 
+  $tempdir = "temp/"; //Nama folder tempat menyimpan file qrcode
+    if (!file_exists($tempdir)) //Buat folder bername temp
+    mkdir($tempdir);
+
+    //ambil logo
+    $logopath="img/logo_kayaku.png";
+
+ //isi qrcode jika di scan
+ $codeContents = 'https://localhost/oregano/cetak_bd_view.php'; 
+
+ //simpan file qrcode
+ QRcode::png($codeContents, $tempdir.'qrpowithlogo.png', QR_ECLEVEL_H, 2);
+
+
+ // ambil file qrcode
+ $QR = imagecreatefrompng($tempdir.'qrpowithlogo.png');
+
+ // memulai menggambar logo dalam file qrcode
+ $logo = imagecreatefromstring(file_get_contents($logopath));
+ 
+ imagecolortransparent($logo , imagecolorallocatealpha($logo , 0, 0, 0, 127));
+ imagealphablending($logo , false);
+ imagesavealpha($logo , true);
+
+ $QR_width = imagesx($QR);
+ $QR_height = imagesy($QR);
+
+ $logo_width = imagesx($logo);
+ $logo_height = imagesy($logo);
+
+ // Scale logo to fit in the QR Code
+ $logo_qr_width = $QR_width/8;
+ $scale = $logo_width/$logo_qr_width;
+ $logo_qr_height = $logo_height/$scale;
+
+ imagecopyresampled($QR, $logo, $QR_width/2.3, $QR_height/2.3, 0, 0, $logo_qr_width, $logo_qr_height, $logo_width, $logo_height);
+
+ // Simpan kode QR lagi, dengan logo di atasnya
+ imagepng($QR,$tempdir.'qrpowithlogo.png');
+
+  //menampilkan file qrcode 
+//  echo '<div align="center"><h2>Create QR Code With Logo PHP</h2>';
+
+//  echo '<br><a href="https://www.maribelajarcoding.com">maribelajarcoding.com</a><div>';
+ ?>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Halaman Print BD</title>
+
+<style type="text/css">
+/* Kode CSS Untuk PAGE ini dibuat oleh http://jsfiddle.net/2wk6Q/1/ */
+body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #FAFAFA;
+        font-family: Tahoma;
+    }
+    * {
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+    .page {
+        width: 210mm;
+        min-height: 145mm;
+        padding: 5mm;
+        margin: 10mm auto;
+        /* border: 1px #D3D3D3 solid;
+        border-radius: 5px; */
+        background: white;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    @page {
+        /* size: A4; */
+        margin: 0;
+    }
+    @media print {
+        html, body {
+            width: 210mm;
+            height: 297mm;        
+        }
+        .page {
+            margin: 0;
+            border: initial;
+            border-radius: initial;
+            width: initial;
+            min-height: initial;
+            box-shadow: initial;
+            background: initial;
+            page-break-after: always;
+        }
+    }
+</style>
+
+</head>
+<body>
+    <div class="page">
+        <!-- <p style="font-size:65%;">Page 1/3</p> -->
+        <table width="100%" style="border-spacing:0;border-collapse:collapse;
+border-top:0px;border-bottom:0px;border-right:0px;border-left:0px;" border="1" cellpadding="">
+            <tr height="10px">
+                <td colspan=16 style="font-size:80%;font-weight:bold;border-top:2px double black;border-bottom:0px;border-color:black;
+               border-right:2px double black;border-left:2px double black;"></td>
+                <!-- <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+                <td>13</td>
+                <td>14</td>
+                <td>15</td>
+                <td>16</td> -->
+            </tr>
+            <tr>
+                <td rowspan=5 style="font-size:80%;font-weight:bold;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:2px double black;"></td>
+                <td colspan=4 style="font-size:80%;font-weight:bold;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;font-family: Times New Roman, Times, serif;">PT. Antartika Nusa</td>
+                <!-- <td>3</td>
+                <td>4</td>
+                <td>5</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td rowspan=5 style="font-size:80%;font-weight:bold;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:2px double black;border-left:0px;"></td>
+            </tr>
+            <tr>
+                <!-- <td>1</td> -->
+                <td colspan=2 style="font-size:80%;font-weight:bold;text-align:center;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;font-family: Times New Roman, Times, serif;">Surabaya</td>
+                <!-- <td>3</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td colspan=3 rowspan=3 style="font-size:200%;font-weight:bold;text-align:center;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;font-family: Times New Roman, Times, serif;">K I B</td>
+                <!-- <td>6</td>
+                <td>7</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <!-- <td>16</td> -->
+            </tr>
+            <tr>
+                <!-- <td>1</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <!-- <td>5</td>
+                <td>6</td>
+                <td>7</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;text-align:left;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px">Nomor</td>
+                <td style="font-size:80%;text-align:center;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px">:</td>
+                <td colspan=5 style="font-size:80%;text-align:left;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px">0031/VII/KP/04/BD/2021</td>
+                <!-- <td>12</td>
+                <td>13</td>
+                <td>14</td>
+                <td>15</td> -->
+                <!-- <td>16</td> -->
+            </tr>
+            <tr>
+                <!-- <td>1</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <!-- <td>5</td>
+                <td>6</td>
+                <td>7</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <!-- <td>16</td> -->
+            </tr>
+            <tr>
+                <!-- <td>1</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td colspan=5 style="font-size:80%;font-weight:bold;text-align:center;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px">(Kartu Identitas Barang)</td>
+                <!-- <td>5</td>
+                <td>6</td>
+                <td>7</td> 
+                <td>8</td> -->
+                <td style="font-size:80%;text-align:left;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px">Jam</td>
+                <td style="font-size:80%;text-align:center;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px">:</td>
+                <td colspan=5 style="font-size:80%;text-align:left;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px">1:44:31 PM</td>
+                <!-- <td>12</td>
+                <td>13</td>
+                <td>14</td>
+                <td>15</td> -->
+                <!-- <td>16</td> -->
+            </tr>
+            <tr height="10px">
+                <th  width="1%" style="font-size:80%;font-weight:bold;border-top:0px;border-bottom:2px double black;border-color:black;
+               border-right:0px;border-left:2px double black;"></th>
+                <th width="8%" style="font-size:80%;font-weight:bold;border-top:0px;border-bottom:2px double black;border-color:black;
+               border-right:0px;border-left:0px;"></th>
+                <th width="9%" style="font-size:80%;font-weight:bold;border-top:0px;border-bottom:2px double black;border-color:black;
+               border-right:0px;border-left:0px;"></th>
+                <th width="1%" style="font-size:80%;font-weight:bold;border-top:0px;border-bottom:2px double black;border-color:black;
+               border-right:0px;border-left:0px;"></th>
+                <th width="18%" style="font-size:80%;font-weight:bold;border-top:0px;border-bottom:2px double black;border-color:black;
+               border-right:0px;border-left:0px;"></th>
+                <th width="18%" style="font-size:80%;font-weight:bold;border-top:0px;border-bottom:2px double black;border-color:black;
+               border-right:0px;border-left:0px;"></th>
+                <th width="3%" style="font-size:80%;font-weight:bold;border-top:0px;border-bottom:2px double black;border-color:black;
+               border-right:0px;border-left:0px;"></th>
+                <th width="1%" style="font-size:80%;font-weight:bold;border-top:0px;border-bottom:2px double black;border-color:black;
+               border-right:0px;border-left:0px;"></th>
+                <th width="5%" style="font-size:80%;font-weight:bold;border-top:0px;border-bottom:2px double black;border-color:black;
+               border-right:0px;border-left:0px;"></th>
+                <th width="1%" style="font-size:80%;font-weight:bold;border-top:0px;border-bottom:2px double black;border-color:black;
+               border-right:0px;border-left:0px;"></th>
+                <th width="7%" style="font-size:80%;font-weight:bold;border-top:0px;border-bottom:2px double black;border-color:black;
+               border-right:0px;border-left:0px;"></th>
+                <th width="7%" style="font-size:80%;font-weight:bold;border-top:0px;border-bottom:2px double black;border-color:black;
+               border-right:0px;border-left:0px;"></th>
+                <th width="7%" style="font-size:80%;font-weight:bold;border-top:0px;border-bottom:2px double black;border-color:black;
+               border-right:0px;border-left:0px;"></th>
+                <th width="7%" style="font-size:80%;font-weight:bold;border-top:0px;border-bottom:2px double black;border-color:black;
+               border-right:0px;border-left:0px;"></th>
+                <th width="6%" style="font-size:80%;font-weight:bold;border-top:0px;border-bottom:2px double black;border-color:black;
+               border-right:0px;border-left:0px;"></th>
+                <th width="1%" style="font-size:80%;font-weight:bold;border-top:0px;border-bottom:2px double black;border-color:black;
+               border-right:2px double black;border-left:0px;"></th>
+            </tr>
+            <tr height="10px">
+                <td rowspan=19 style="font-size:80%;font-weight:bold;border-top:0px;border-bottom:2px double black;border-color:black;
+               border-right:0px;border-left:2px double black;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td rowspan=19 style="font-size:80%;font-weight:bold;border-top:0px;border-bottom:2px double black;border-color:black;
+               border-right:2px double black;border-left:0px;"></td>
+            </tr>
+            <tr>
+                <!-- <td>1</td> -->
+                <td colspan=2 style="font-size:80%;text-align:left;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px">NAMA BARANG</td>
+                <!-- <td>3</td> -->
+                <td style="font-size:80%;text-align:left;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px">:</td>
+                <td colspan=2 style="font-size:80%;border-top:0px;border-bottom:1px single black;border-color:black;
+               border-right:0px;border-left:0px;">Frozen Salmon Ext.</td>
+                <!-- <td>6</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;text-align:left;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px">PO</td>
+                <td style="font-size:80%;text-align:center;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px">:</td>
+                <td colspan=5 style="font-size:80%;text-align:left;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px">0582/VI/KP/ANS/PO/2021</td>
+                <!-- <td>12</td>
+                <td>13</td>
+                <td>14</td>
+                <td>15</td> -->
+                <!-- <td>16</td> -->
+            </tr>
+            <tr>
+                <!-- <td>1</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td colspan=5 style="font-size:80%;text-align:left;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px">NO.SJ: CK/2107/0052 NOPOL: L-58-BN</td>
+                <!-- <td>12</td>
+                <td>13</td>
+                <td>14</td>
+                <td>15</td> -->
+                <!-- <td>16</td> -->
+            </tr>
+            <tr>
+                <!-- <td>1</td> -->
+                <td colspan=2 style="font-size:80%;text-align:left;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px">DITERIMA TANGGAL</td>
+                <!-- <td>3</td> -->
+                <td style="font-size:80%;text-align:left;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px">:</td>
+                <td colspan=2 style="font-size:80%;text-align:left;border-top:0px;border-bottom:1px single black;border-color:black;
+               border-right:0px;border-left:0px">7/21/2021  1:44:31 PM</td>
+                <!-- <td>6</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <!-- <td>16</td> -->
+            </tr>
+            <tr height="15px">
+                <!-- <td>1</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <!-- <td>16</td> -->
+            </tr>
+            <tr>
+                <!-- <td>1</td> -->
+                <td colspan=2 style="font-size:80%;text-align:left;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px">PEMASOK</td>
+                <!-- <td>3</td> -->
+                <td style="font-size:80%;text-align:left;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px">:</td>
+                <td colspan=2 style="font-size:80%;text-align:left;border-top:0px;border-bottom:1px single black;border-color:black;
+               border-right:0px;border-left:0px">Inter Food, PT</td>
+                <!-- <td>6</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <!-- <td>16</td> -->
+            </tr>
+            <tr height="15px">
+                <!-- <td>1</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <!-- <td>16</td> -->
+            </tr>
+            <tr>
+                <!-- <td>1</td> -->
+                <td colspan=2 style="font-size:80%;text-align:left;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px">JUMLAH</td>
+                <!-- <td>3</td> -->
+                <td style="font-size:80%;text-align:left;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px">:</td>
+                <td colspan=2 style="font-size:80%;text-align:left;border-top:0px;border-bottom:1px single black;border-color:black;
+               border-right:0px;border-left:0px">430.00 Kg</td>
+                <!-- <td>6</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <!-- <td>16</td> -->
+            </tr>
+            <!-- Keterangan---------------------------------------------------------------------------------------------- -->
+            <tr>
+                <!-- <td>1</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td colspan=2 rowspan=4 style="font-size:80%;text-align:left;vertical-align:top;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px">2 Coli @ 215 KG</td>
+                <!-- <td>6</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <!-- <td>16</td> -->
+            </tr>
+            <tr height="50px">
+                <!-- <td>1</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <!-- <td>5</td>
+                <td>6</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <!-- <td>16</td> -->
+            </tr>
+            <tr height="20px">
+                <!-- <td>1</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <!-- <td>5</td>
+                <td>6</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <!-- <td>16</td> -->
+            </tr>
+            <tr height="20px">
+                <!-- <td>1</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <!-- <td>5</td>
+                <td>6</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <!-- <td>16</td> -->
+            </tr>
+<!-- tanda tangan dan barcode---------------------------------------------------------------------------------------------- -->
+            <tr>
+                <!-- <td>1</td> -->
+                <td colspan=3 style="font-size:80%;text-align:center;vertical-align:top;border-top:1px single;border-bottom:1px single;border-color:black;
+               border-right:1px single;border-left:1px single">SEKSI GUDANG</td>
+                <!-- <td>3</td> -->
+                <!-- <td>4</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td colspan=4 rowspan=6 style="text-align:right;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"><?php echo '<img src="'.$tempdir.'qrpowithlogo.png'.'" />'; ?></td>
+                <!-- <td>13</td>
+                <td>14</td>
+                <td>15</td> -->
+                <!-- <td>16</td> -->
+            </tr>
+            <tr>
+                <!-- <td>1</td> -->
+                <td colspan=3 style="font-size:80%;text-align:center;vertical-align:top;border-top:1px single;border-bottom:1px single;border-color:black;
+               border-right:1px single;border-left:1px single">DITERIMA OLEH</td>
+                <!-- <td>3</td> -->
+                <!-- <td>4</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <!-- <td>12</td> -->
+                <!-- <td>13</td>
+                <td>14</td>
+                <td>15</td> -->
+                <!-- <td>16</td> -->
+            </tr>
+            <tr height="20px">
+                <!-- <td>1</td> -->
+                <td colspan=3 rowspan=4 style="border-top:1px single black;border-bottom:1px single;border-color:black;
+               border-right:1px single black;border-left:1px single black">ttd</td>
+                <!-- <td>3</td>
+                <td>4</td> -->
+                <td style="border-top:0px;border-bottom:0px;
+               border-right:0px;border-left:0px;"></td>
+                <td style="border-top:0px;border-bottom:0px;
+               border-right:0px;border-left:0px;"></td>
+                <td style="border-top:0px;border-bottom:0px;
+               border-right:0px;border-left:0px;"></td>
+                <td style="border-top:0px;border-bottom:0px;
+               border-right:0px;border-left:0px;"></td>
+                <td style="border-top:0px;border-bottom:0px;
+               border-right:0px;border-left:0px;"></td>
+                <td style="border-top:0px;border-bottom:0px;
+               border-right:0px;border-left:0px;"></td>
+                <td style="border-top:0px;border-bottom:0px;
+               border-right:0px;border-left:0px;"></td>
+                <!-- <td>12</td> -->
+                <!-- <td>13</td>
+                <td>14</td>
+                <td>15</td> -->
+                <!-- <td>16</td> -->
+            </tr>
+            <tr height="20px">
+                <!-- <td>1</td> -->
+                <!-- <td>2</td>
+                <td>3</td>
+                <td>4</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <!-- <td>12</td> -->
+                <!-- <td>13</td>
+                <td>14</td>
+                <td>15</td> -->
+                <!-- <td>16</td> -->
+            </tr>
+            <tr height="20px">
+                <!-- <td>1</td> -->
+                <!-- <td>2</td>
+                <td>3</td>
+                <td>4</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <!-- <td>12</td> -->
+                <!-- <td>13</td>
+                <td>14</td>
+                <td>15</td> -->
+                <!-- <td>16</td> -->
+            </tr>
+            <tr height="20px">
+                <!-- <td>1</td> -->
+                <!-- <td>2</td>
+                <td>3</td>
+                <td>4</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;
+               border-right:0px;border-left:0px;"></td>
+                <!-- <td>12</td>
+                <td>13</td>
+                <td>14</td>
+                <td>15</td> -->
+                <!-- <td>16</td> -->
+            </tr>
+            <tr height=10px>
+                <!-- <td>1</td> -->
+                <td colspan=15 style="font-size:80%;font-weight:bold;border-top:0px;border-bottom:2px double black;border-color:black;
+               border-right:2px double black;border-left:0px"></td>
+                <!-- <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+                <td>13</td>
+                <td>14</td>
+                <td>15</td>
+                <td>16</td> -->
+            </tr>
+            <tr height=10px>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+            </tr>
+            <tr>
+                <td colspan=3 style="font-size:70%;border-top:1px single;border-bottom:1px single;border-color:black;
+               border-right:0px;border-left:1px single;">F-58.01 Rev.0</td>
+                <!-- <td>2</td>
+                <td>3</td> -->
+                <td colspan=3 style="font-size:70%;border-top:1px single;border-bottom:1px single;border-color:black;
+               border-right:1px single;border-left:0px;">Tgl 19 Januari 2010</td>
+                <!-- <td>5</td>
+                <td>6</td> -->
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+                <td style="font-size:80%;border-top:0px;border-bottom:0px;border-color:black;
+               border-right:0px;border-left:0px;"></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
