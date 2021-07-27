@@ -9,7 +9,7 @@ include "phpqrcode/qrlib.php";
     mkdir($tempdir);
 
     //ambil logo
-    $logopath="img/logo_kayaku.png";
+    $logopath="img/logo_.png";
 
  //isi qrcode jika di scan
  $codeContents = 'https://localhost/oregano/cetak_bd_view.php'; 
